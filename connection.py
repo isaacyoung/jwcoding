@@ -1,9 +1,21 @@
-import dataset
+import pymysql
 
-db = dataset.connect('mysql://root:123456@127.0.0.1/jwcoding')
+# 打开数据库连接
+connection = pymysql.connect("localhost", "root", "123456", "jwcoding", 3306)
 
-print(db.tables)
+try:
+
+    with connection.cursor() as cursor:
+        # Read a single record
+        sql = "SELECT `TABLE_NAME`,TABLE_COMMENT FROM information_schema.`TABLES` WHERE TABLE_SCHEMA=%s AND TABLE_TYPE='BASE TABLE'"
+        cursor.execute(sql, ('jwcoding',))
+        for i in range(cursor.rowcount):
+            result = cursor.fetchone()
+            print(result)
+
+finally:
+    connection.close()
 
 
-
-
+def get_tables():
+    pass

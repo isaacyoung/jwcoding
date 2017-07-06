@@ -1,3 +1,4 @@
 # jwcoding
 
-pip install dataset
+pip install PyMySQL
+
