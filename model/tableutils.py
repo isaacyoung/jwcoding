@@ -17,11 +17,15 @@ def get_java_service_impl_name(table):
 
 def get_java_class_name(table):
     temp = table
-    if table.find('_') != -1:
-        temp = table.split('_')
+    if temp.find('_') != -1:
+        temp = temp.split('_')
+        result = []
         for s in temp:
-            s.capitalize()
-        return temp.join('')
+            result.append(s.capitalize())
+        return ''.join(result)
     else:
         return temp.capitalize()
 
+
+def get_short_name(name):
+    return name[name.rfind('.')+1]

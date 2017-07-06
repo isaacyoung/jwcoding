@@ -3,7 +3,13 @@ import shutil
 
 
 def clear_path(path):
-    shutil.rmtree(path)
+    filelist = os.listdir(path)
+    for f in filelist:
+        filepath = os.path.join(path, f)
+        if os.path.isfile(filepath):
+            os.remove(filepath)
+        elif os.path.isdir(filepath):
+            shutil.rmtree(filepath, True)
 
 
 def create_path(path):

@@ -1,19 +1,19 @@
 from string import Template
 
 template = '''
-package com.cdsq.manage.pro.dao;
+package $package;
 
-import com.cdsq.manage.base.BaseMapper;
-import com.cdsq.manage.pro.domain.BArea;
+import $superType;
+import $modelType;
 
 /**
- * 
+ * $comment
  */
-public interface BAreaMapper extends BaseMapper<BArea> {
+public interface $className extends $superClass<$modelName> {
 }
 '''
 
 
-def get_mapper():
+def get_mapper(params):
     t = Template(template)
-    return t.substitute()
+    return t.substitute(params)
