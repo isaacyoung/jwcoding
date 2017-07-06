@@ -4,12 +4,16 @@ template = '''
 package $package;
 
 import $superType;
+import $mapperType;
 import $modelType;
+import $interfaceType;
+import org.springframework.stereotype.Service;
 
 /**
  * $comment
  */
-public interface $className extends $superClass<$modelName> {
+@Service
+public class $className extends $superClass<$modelName, $mapperName> implements $interfaceName {
 }
 '''
 
