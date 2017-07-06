@@ -1,6 +1,11 @@
 # auto code
+# python jwcoding.py
+# python jwcoding.py [table] [-m]
+# [-m] copy[move] to project source
 
 import os
+
+import sys
 
 import connection
 import file
@@ -8,10 +13,21 @@ from code import mapper, service, serviceimpl
 from config import Config
 from model import tableutils
 
+
+args = sys.argv
+over = False
+if len(args) == 1:
+    tables = connection.get_tables()
+else:
+    for a in args:
+        if a == '-m':
+            over = True
+        else:
+            tables = connection.get_table(args[1])
+
+
 if os.path.exists(Config.get_prop('target.path')):
     file.clear_path(Config.get_prop('target.path'))
-
-tables = connection.get_tables()
 
 # mapper
 for t in tables:
@@ -61,3 +77,7 @@ for t in tables:
     }
     service_impl_content = serviceimpl.get_content(params)
     file.create_file(service_impl_file, service_impl_content)
+
+if over:
+    file.move_to_project()
+
