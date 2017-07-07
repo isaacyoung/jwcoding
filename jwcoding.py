@@ -9,7 +9,7 @@ import sys
 
 import connection
 import file
-from code import mapper, service, serviceimpl, model
+from code import mapper, service, serviceimpl, model, mapperxml
 from config import Config
 from model import tableutils
 
@@ -89,6 +89,24 @@ for t in tables:
     }
     model_content = model.get_content(params)
     file.create_file(model_file, model_content)
+
+# mapper xml
+for t in tables:
+    columns = connection.get_columns(t[0])
+    mapper_xml_file = tableutils.get_mapper_xml_file(t[0])
+    params = {
+        'mapperType': Config.get_prop('package.dao') + '.' + tableutils.get_java_mapper_name(t[0]),
+        'resultMap': mapperxml.get_result_map(t[0], columns),
+        'baseColumn': mapperxml.get_base_column_list(columns),
+        'selectById': mapperxml.get_select_by_id(t[0]),
+        'deleteById': mapperxml.get_delete_by_id(t[0]),
+        'select': mapperxml.get_select(t[0], columns),
+        'insert': mapperxml.get_insert(t[0], columns),
+        'update': mapperxml.get_upate(t[0], columns),
+        'delete': mapperxml.get_delete(t[0], columns)
+    }
+    mapper_xml_content = mapperxml.get_content(params)
+    file.create_file(mapper_xml_file, mapper_xml_content)
 
 if over:
     file.move_to_project()

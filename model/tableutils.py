@@ -55,3 +55,7 @@ def get_service_impl_file(table):
            + os.sep + 'impl' \
            + os.sep + get_java_service_impl_name(table) + '.java'
 
+
+def get_mapper_xml_file(table):
+    return Config.get_prop('target.path') + os.sep + Config.chage_to_path(Config.get_prop('package.xml')) \
+           + os.sep + get_java_model_name(table) + '.xml'

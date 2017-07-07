@@ -41,7 +41,8 @@ def get_java_set_method_name(column):
 
 def get_jdbc_type(type):
     temp = type.upper()
-
+    if temp =='INT':
+        temp = 'INTEGER'
     return temp
 
 
