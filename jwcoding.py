@@ -1,7 +1,7 @@
 # auto code
 # python jwcoding.py
 # python jwcoding.py [table] [-m]
-# [-m] copy[move] to project source
+# [-m] copy(move) to project source
 
 import os
 
@@ -9,7 +9,7 @@ import sys
 
 import connection
 import file
-from code import mapper, service, serviceimpl
+from code import mapper, service, serviceimpl, model
 from config import Config
 from model import tableutils
 
@@ -77,6 +77,18 @@ for t in tables:
     }
     service_impl_content = serviceimpl.get_content(params)
     file.create_file(service_impl_file, service_impl_content)
+
+# model
+for t in tables:
+    model_file = tableutils.get_model_file(t[0])
+    params = {
+        'package': Config.get_prop('package.model'),
+        'className': tableutils.get_java_model_name(t[0]),
+        'content': model.get_column_content(t[0]),
+        'comment': t[1]
+    }
+    model_content = model.get_content(params)
+    file.create_file(model_file, model_content)
 
 if over:
     file.move_to_project()

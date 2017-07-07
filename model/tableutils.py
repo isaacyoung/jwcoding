@@ -20,7 +20,7 @@ def get_java_service_impl_name(table):
 
 
 def get_java_class_name(table):
-    temp = table
+    temp = table.lower()
     if temp.find('_') != -1:
         temp = temp.split('_')
         result = []
