@@ -97,7 +97,7 @@ for t in tables:
     params = {
         'mapperType': Config.get_prop('package.dao') + '.' + tableutils.get_java_mapper_name(t[0]),
         'resultMap': mapperxml.get_result_map(t[0], columns),
-        'baseColumn': mapperxml.get_base_column_list(),
+        # 'baseColumn': mapperxml.get_base_column_list(),
         'selectById': mapperxml.get_select_by_id(t[0], columns),
         'deleteById': mapperxml.get_delete_by_id(t[0], columns),
         'select': mapperxml.get_select(t[0], columns),

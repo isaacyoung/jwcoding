@@ -8,7 +8,6 @@ template = '''\
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="$mapperType">
 $resultMap
-$baseColumn
 $selectById
 $deleteById
 $select
@@ -50,7 +49,7 @@ delete_by_id = '''
 select = '''
   <select id="select" parameterType="$parameterType" resultMap="BaseResultMap">
     select 
-    <include refid="Base_Column_List" />
+    a.*
     from $tableName a
     <trim prefix="where" prefixOverrides="and|or">
 $content
