@@ -23,7 +23,7 @@ def get_java_get_method_name(column):
 
         return 'get' + ''.join(result)
     else:
-        return temp
+        return 'get' + temp.capitalize()
 
 
 def get_java_set_method_name(column):
@@ -36,13 +36,15 @@ def get_java_set_method_name(column):
 
         return 'set' + ''.join(result)
     else:
-        return temp
+        return 'set' + temp.capitalize()
 
 
 def get_jdbc_type(type):
     temp = type.upper()
     if temp =='INT':
         temp = 'INTEGER'
+    elif temp == 'DATETIME':
+        temp = 'TIMESTAMP'
     return temp
 
 
@@ -67,6 +69,8 @@ def get_java_type(type):
     elif temp == 'DATALINK':
         return 'Object'
     elif temp == 'DATE':
+        return 'Date'
+    elif temp == 'DATETIME':
         return 'Date'
     elif temp == 'DECIMAL':
         return 'BigDecimal'

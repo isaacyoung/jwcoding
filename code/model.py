@@ -55,7 +55,7 @@ def get_column_content(t):
         })
         t = Template(set_method)
         result += t.substitute({
-            "name": columnutils.get_java_get_method_name(column[1]),
+            "name": columnutils.get_java_set_method_name(column[1]),
             "field": columnutils.get_java_field_name(column[1]),
             "type": columnutils.get_java_type(column[3]),
             "temp": '_' + columnutils.get_java_field_name(column[1])

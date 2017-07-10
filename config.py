@@ -3,29 +3,29 @@ import os
 
 
 class Config:
-    __config = None
+    _config = None
 
     @staticmethod
-    def __instance():
-        if Config.__config is None:
-            Config.__config = configparser.ConfigParser()
-            Config.__config.read('config.ini')
+    def _instance():
+        if Config._config is None:
+            Config._config = configparser.ConfigParser()
+            Config._config.read('config.ini')
 
     @staticmethod
     def get_prop(key):
-        Config.__instance()
+        Config._instance()
 
         if key.find('.') != -1:
             arr = key.split('.')
             result = None
             for k in arr:
                 if result is None:
-                    result = Config.__config[k]
+                    result = Config._config[k]
                 else:
                     result = result[k]
             return result
         else:
-            return Config.__config[key]
+            return Config._config[key]
 
     @staticmethod
     def get_jdbc_url():

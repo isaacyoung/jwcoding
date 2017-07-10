@@ -5,7 +5,8 @@ from config import Config
 
 
 def connect():
-    return pymysql.connect("localhost", "root", "123456", "jwcoding", 3306)
+    return pymysql.connect(Config.get_host(), Config.get_prop('jdbc.username'), Config.get_prop('jdbc.password'),
+                           Config.get_database(), int(Config.get_port()), charset='utf8')
 
 
 def get_tables():

@@ -16,7 +16,7 @@ def get_java_service_name(table):
 
 
 def get_java_service_impl_name(table):
-    return get_java_service_name(table) + 'Impl'
+    return get_java_service_name(table) + 'Imp'
 
 
 def get_java_class_name(table):
@@ -58,4 +58,4 @@ def get_service_impl_file(table):
 
 def get_mapper_xml_file(table):
     return Config.get_prop('target.path') + os.sep + Config.chage_to_path(Config.get_prop('package.xml')) \
-           + os.sep + get_java_model_name(table) + '.xml'
+           + os.sep + get_java_mapper_name(table) + '.xml'
