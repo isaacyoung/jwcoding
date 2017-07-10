@@ -35,9 +35,7 @@ base_column_list = '''
 
 select_by_id = '''
   <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from $tableName
+    select * from $tableName
     $where
   </select>\
 '''
@@ -53,7 +51,7 @@ select = '''
   <select id="select" parameterType="$parameterType" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from $tableName
+    from $tableName a
     <trim prefix="where" prefixOverrides="and|or">
 $content
     </trim>
@@ -126,10 +124,10 @@ def get_result_map_content(columns):
     return result
 
 
-def get_base_column_list(columns):
+def get_base_column_list():
     t = Template(base_column_list)
     return t.substitute({
-        "content": get_column_list(columns)
+        "content": 'a.*'
     })
 
 
@@ -170,11 +168,11 @@ def get_select(table, columns):
     return t.substitute({
         "parameterType": Config.get_prop('package.model') + '.' + tableutils.get_java_model_name(table),
         'tableName': table,
-        'content': get_where_content(columns)
+        'content': get_where_content(columns, ali='a.')
     })
 
 
-def get_where_content(columns, prefix=''):
+def get_where_content(columns, prefix='', ali=''):
     result = ''
     for i, c in enumerate(columns):
         java_type = columnutils.get_java_type(c[3])
@@ -188,9 +186,9 @@ def get_where_content(columns, prefix=''):
             result += '      <if test="' + prefix + java_name + ' != null ">\n'
 
         if i != 0:
-            result += '        and ' + c[1] + ' = #{' + prefix + java_name + ',jdbcType=' + jdbc_type + '}\n'
+            result += '        and ' + ali + c[1] + ' = #{' + prefix + java_name + ',jdbcType=' + jdbc_type + '}\n'
         else:
-            result += '        ' + c[1] + ' = #{' + prefix + java_name + ',jdbcType=' + jdbc_type + '}\n'
+            result += '        ' + ali + c[1] + ' = #{' + prefix + java_name + ',jdbcType=' + jdbc_type + '}\n'
         result += '      </if>'
         if i != len(columns) - 1:
             result += '\n'
