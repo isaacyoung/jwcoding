@@ -23,7 +23,7 @@ def create_file(file, content):
     if not os.path.exists(path):
         create_path(path)
 
-    f = open(file, 'w')
+    f = open(file, 'w', encoding='utf-8')
     f.write(content)
     f.flush()
     f.close()
@@ -39,7 +39,10 @@ def move_to_project():
     if not os.path.exists(to_java_path):
         create_path(to_java_path)
     copy_files(from_path + os.sep + 'com', to_java_path)
-    # copy_files(from_path + os.sep + 'mapper', to_resource_path)
+
+    if not os.path.exists(to_resource_path):
+        create_path(to_resource_path)
+    copy_files(from_path + os.sep + 'mapper', to_resource_path)
 
 
 def copy_files(source_dir, target_dir):
